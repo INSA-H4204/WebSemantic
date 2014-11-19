@@ -2,7 +2,7 @@
 myApp.service('DBPediaSpotlightApi',['$http','$q', function ($http,$q) {
     
 
-    buildUrl = function(text) {
+    buildDBPediaUrl = function(text) {
             return "http://spotlight.dbpedia.org/rest/annotate?text="+text+"&confidence=0.2&support=20"; 
       }     
         return {
@@ -14,7 +14,7 @@ myApp.service('DBPediaSpotlightApi',['$http','$q', function ($http,$q) {
 
             angular.forEach(documents,function(document) {
               console.log(document);
-              textCalls.push($http.get(buildUrl(document.text)))
+              textCalls.push($http.get(buildDBPediaUrl(document.text)))
             });
 
             $q.all(textCalls)
@@ -22,7 +22,7 @@ myApp.service('DBPediaSpotlightApi',['$http','$q', function ($http,$q) {
                   function(res) {
                     console.log(res);
                     //TODO Find a way to make correspond url with Resources array
-                      deferred.resolve(res.Resources)
+                      deferred.resolve(res)
                 },
                 function(errors) {
                   deferred.reject(errors);

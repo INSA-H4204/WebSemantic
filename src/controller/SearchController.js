@@ -15,19 +15,20 @@ myApp.controller('SearchController', ['$scope','GoogleCustomSearch','AlchemyApi'
   	*/
 	$scope.callRequest = function() {
 		// 1 : Call Google Custom Search Service
-		//var urls = GoogleCustomSearch.call($scope.request);
+	 var urls = GoogleCustomSearch.call($scope.request);
+   console.log(urls);
 		//var urls = GoogleApiService($scope.request); //
 		//console.log(urls);
 		//To use for AlchemiApi test
-		var urls = ["http://www.allocine.fr/film/fichefilm_gen_cfilm=218759.html","http://www.allocine.fr/video/player_gen_cmedia=19547921&cfilm=218759.html","http://www.allocine.fr/video/player_gen_cmedia=19547922&cfilm=218759.html","http://www.allocine.fr/film/fichefilm-218759/casting/","http://www.allocine.fr/film/fichefilm-218759/critiques/spectateurs/","http://www.allocine.fr/film/fichefilm_gen_cfilm=215747.html","http://www.allocine.fr/video/player_gen_cmedia=19541021&cfilm=215747.html","http://www.allocine.fr/film/fichefilm-218759/soundtrack/","http://www.allocine.fr/film/fichefilm_gen_cfilm=125054.html","http://www.allocine.fr/video/player_gen_cmedia=19547109&cfilm=125054.html"]
+		//var urls = ["http://www.allocine.fr/film/fichefilm_gen_cfilm=218759.html","http://www.allocine.fr/video/player_gen_cmedia=19547921&cfilm=218759.html","http://www.allocine.fr/video/player_gen_cmedia=19547922&cfilm=218759.html","http://www.allocine.fr/film/fichefilm-218759/casting/","http://www.allocine.fr/film/fichefilm-218759/critiques/spectateurs/","http://www.allocine.fr/film/fichefilm_gen_cfilm=215747.html","http://www.allocine.fr/video/player_gen_cmedia=19541021&cfilm=215747.html","http://www.allocine.fr/film/fichefilm-218759/soundtrack/","http://www.allocine.fr/film/fichefilm_gen_cfilm=125054.html","http://www.allocine.fr/video/player_gen_cmedia=19547109&cfilm=125054.html"]
 		
-		// 2 : Call AlchemyAPI service
-		//AlchemyApi.call(urls);
+	  //2 : Call AlchemyAPI service
+		AlchemyApi.call(urls);
 
 		//Variable d'exemple
 		var texts = [
-			{
-				url : "url1",
+			
+{				url : "url1",
 				text :  "La Kabylie est une région historique et ethnolinguistique située dans le nord de l'Algérie, à l'est d'Alger."
 			},
 			{
@@ -37,8 +38,7 @@ myApp.controller('SearchController', ['$scope','GoogleCustomSearch','AlchemyApi'
 		];
 
 		//3 : Call to DBPedia SportLight API
-		$scope.dbpedia = DBPediaSpotlightApi.call(texts);
-		
+		//$scope.dbpedia = DBPediaSpotlightApi.call(texts);
 		//4 : Service D'enrichissement des graphes
 		//Relaxation.call();
 		//5 : Construction du graphe de similarité
@@ -47,6 +47,7 @@ myApp.controller('SearchController', ['$scope','GoogleCustomSearch','AlchemyApi'
 
 	
 }]);
+
 
 
 //Exemple of what google api service returns : var urlList = ["http://www.allocine.fr/film/fichefilm_gen_cfilm=218759.html","http://www.allocine.fr/video/player_gen_cmedia=19547921&cfilm=218759.html","http://www.allocine.fr/video/player_gen_cmedia=19547922&cfilm=218759.html","http://www.allocine.fr/film/fichefilm-218759/casting/","http://www.allocine.fr/film/fichefilm-218759/critiques/spectateurs/","http://www.allocine.fr/film/fichefilm_gen_cfilm=215747.html","http://www.allocine.fr/video/player_gen_cmedia=19541021&cfilm=215747.html","http://www.allocine.fr/film/fichefilm-218759/soundtrack/","http://www.allocine.fr/film/fichefilm_gen_cfilm=125054.html","http://www.allocine.fr/video/player_gen_cmedia=19547109&cfilm=125054.html"]
