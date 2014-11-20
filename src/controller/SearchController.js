@@ -1,7 +1,7 @@
 var myApp = angular.module('myApp',[]);
 myApp.config(['$httpProvider', function($httpProvider) {
-        $httpProvider.defaults.useXDomain = true;
-        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        // $httpProvider.defaults.useXDomain = true;
+        // delete $httpProvider.defaults.headers.common['X-Requested-With'];
     }
 ]);
 
@@ -14,9 +14,11 @@ myApp.controller('SearchController', ['$scope','GoogleCustomSearch','AlchemyApi'
   	*Called when click on submit button 
   	*/
 	$scope.callRequest = function() {
+
+		alert("yeah");
 		// 1 : Call Google Custom Search Service
 	 var urls = GoogleCustomSearch.call($scope.request);
-   console.log(urls);
+   	 console.log(urls);
 		//var urls = GoogleApiService($scope.request); //
 		//console.log(urls);
 		//To use for AlchemiApi test

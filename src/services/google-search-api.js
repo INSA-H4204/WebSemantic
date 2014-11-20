@@ -15,15 +15,17 @@ myApp.service('GoogleCustomSearch',['$http','$q', function ($http,$q) {
         //Call to Google CSE API
         $http.get(googleApiUrl).
               success(function(data, status, headers, config) {
-                console.log(data);
+                
                 // this callback will be called asynchronously
                 // when the response available
-                var resp = [] ;
+                var response = [] ;
                 angular.forEach(data.items,function(value,key) {
-                  resp[key] = value.link;
+                  response[key] = { 
+                      link : value.link,
+                      snippet : value.snippet,
+                      title : value.title
                 })
-                console.log(resp);
-                deffered.resolve(resp);
+                deffered.resolve(response);
               }).
               error(function(data, status, headers, config) {
                 console.log(data);
