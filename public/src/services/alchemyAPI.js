@@ -8,7 +8,6 @@ myApp.service('AlchemyApi',['$http','$q', function ($http,$q) {
             var urlCalls = [];
             //Handle deffered request
             var deferred = $q.defer();
-
             angular.forEach(documents,function(document) {
               urlCalls.push($http({
                     method: "POST",

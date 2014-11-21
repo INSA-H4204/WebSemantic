@@ -1,14 +1,15 @@
 myApp.service('Relaxation',['$http','$q', function ($http,$q) {
         
+	return {
 
-
-      this.call = function(request) {
+      call: function(request) {
 
         //This function is the relaxation main function
         //It can call other function from this service
 
         return ;
-      };
+      }
 
+  }
 
 }]);

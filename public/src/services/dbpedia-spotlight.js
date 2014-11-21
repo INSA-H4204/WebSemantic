@@ -70,7 +70,6 @@ myApp.service('DBPediaSpotlightApi',['$http','$q', function ($http,$q) {
                   function(res) {
                       documents = []
                       angular.forEach(res,function(value,key){
-                        console.log(value);
                         documents[key] = value.data
                       })
                       deferred.resolve(documents) 
