@@ -3,13 +3,14 @@ var express = require('express'),
     app = express();
 var http = require('http');
 var request = require('request');
+var superagent = require('superagent');
 var parseString = require('xml2js').parseString;
 
 
 
 app.use(express.static(__dirname + '/public'));
 // parse application/json
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '20mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 
@@ -39,31 +40,47 @@ app.post('/ConnectToAlchemyApi', function(req, res) {
 app.post('/ConnectToDBPediaApi', function(req, res) {
     var document = req.body;
 
-
-
-    var options = {
-    host: 'spotlight.dbpedia.org',
-    path: "/rest/annotate?text="+document.text+"&confidence=0.2&support=20",
-    method: 'GET',
-    headers: {
-        	'Content-Type': 'application/json',
-    	}
-	};
-	var req=http.get(options, function(res) {
-	    console.log(res.statusCode);
-	    var body = '';
-	    res.on('data', function(data) {
-	        body += data;
-	    });
-	    res.on('end', function() {
-	    		console.log(body);
-		        document.Resources = JSON.parse(body).Resources;
-     	    	res.send(document);
-	    });
-	    res.on('error', function(error) {
-	        console.log(error);
-	    });
+	superagent
+	      .get("http://spotlight.dbpedia.org/rest/annotate")
+	      .query({ text: document.text })
+	      .set('Accept', 'application/json')
+	      .end(function(result) {
+	        if(result.ok && result.body.Resources) {
+	        	document.Resources = result.body.Resources;
+	        	console.log(document.Resources);
+	        	res.send(document);	
+	        }
+	        else ( res.send(null));
+	    })
 	});
+	
+	
+
+
+ //    var options = {
+ //    host: 'spotlight.dbpedia.org',
+ //    path: "/rest/annotate?text="+document.text+"&confidence=0.2&support=20",
+ //    method: 'GET',
+ //    headers: {
+ //        	'Content-Type': 'application/json',
+ //    	}
+	// };
+	// var req=http.get(options, function(res) {
+	//     console.log(res.statusCode);
+	//     var body = '';
+	//     res.on('data', function(data) {
+	//     	console.log("res.on data =" + data);
+	//         body += data;
+	//     });
+	//     res.on('end', function() {
+	//     		console.log(body);
+	// 	        document.Resources = JSON.parse(body).Resources;
+ //     	    	res.send(document);
+	//     });
+	//     res.on('error', function(error) {
+	//         console.log(error);
+	//     });
+	// });
 
 	// request.get(
 	// 	"http://spotlight.dbpedia.org/rest/annotate?text="+document.text+"&confidence=0.2&support=20",
@@ -82,4 +99,3 @@ app.post('/ConnectToDBPediaApi', function(req, res) {
 	//     }
 	// );
 	
-});
