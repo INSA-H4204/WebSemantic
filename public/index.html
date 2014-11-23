@@ -21,28 +21,28 @@
 
 	<div ng-controller="SearchController" class="site-wrapper">
 	    <div class="site-wrapper-inner">
-		<div class="cover-container">
-		    <div class="masthead clearfix">
-    			<h1 class="cover-heading">Personnalisez vos recherches</h1>
-    			<p class="lead">Cette page intègre un moteur de recherche web sémantique, plus intuitif et plus efficace qu'un moteur de recherche habituel. Essayez-le !</p>
-    			<img src="web/Logo_INSA_Lyon_2014.png"/>
-		    </div>
-		    <div class="inner cover input-group">
-			     <input ng-enter="callRequest()" ng-model="request" type="text" class="form-control"     placeholder="Entrez un nom de film, d'acteur, de réalisateur etc..">
-                 <span class="input-group-btn">
-                    <button ng-click="callRequest()" class="btn btn-default" type="button">
-    			       <span class="glyphicon glyphicon-search"></span>
-    			    </button>
-                </span>
-		    </div>
-            <div ng-repeat="document in documents"/>
-                <h3>{{document.title}}<small>{{document.link}}</small></h3>
-                <p> {{document.snippet}}</p>
-            </div>
-		    <div class="mastfoot">
-			     <p>©2014 H4204 - IF Insa</p>
-		    </div>
-		</div>
+    		<div class="cover-container">
+    		    <div class="masthead clearfix">
+        			<h1 class="cover-heading">Personnalisez vos recherches</h1>
+        			<p class="lead">Cette page intègre un moteur de recherche web sémantique, plus intuitif et plus efficace qu'un moteur de recherche habituel. Essayez-le !</p>
+        			<img src="web/Logo_INSA_Lyon_2014.png"/>
+    		    </div>
+    		    <div class="inner cover input-group">
+    			     <input ng-enter="callRequest()" ng-model="request" type="text" class="form-control"     placeholder="Entrez un nom de film, d'acteur, de réalisateur etc..">
+                     <span class="input-group-btn">
+                        <button ng-click="callRequest()" class="btn btn-default" type="button">
+        			       <span class="glyphicon glyphicon-search"></span>
+        			    </button>
+                    </span>
+    		    </div>
+    <!--             <div ng-repeat="document in documents"/>
+                    <h3>{{document.title}}<small>{{document.link}}</small></h3>
+                    <p> {{document.snippet}}</p>
+                </div> -->
+    		    <div class="mastfoot">
+    			     <p>©2014 H4204 - IF Insa</p>
+    		    </div>
+    		</div>
 	    </div>
 	</div>
 

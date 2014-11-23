@@ -47,55 +47,8 @@ app.post('/ConnectToDBPediaApi', function(req, res) {
 	      .end(function(result) {
 	        if(result.ok && result.body.Resources) {
 	        	document.Resources = result.body.Resources;
-	        	console.log(document.Resources);
 	        	res.send(document);	
 	        }
 	        else ( res.send(null));
 	    })
 	});
-	
-	
-
-
- //    var options = {
- //    host: 'spotlight.dbpedia.org',
- //    path: "/rest/annotate?text="+document.text+"&confidence=0.2&support=20",
- //    method: 'GET',
- //    headers: {
- //        	'Content-Type': 'application/json',
- //    	}
-	// };
-	// var req=http.get(options, function(res) {
-	//     console.log(res.statusCode);
-	//     var body = '';
-	//     res.on('data', function(data) {
-	//     	console.log("res.on data =" + data);
-	//         body += data;
-	//     });
-	//     res.on('end', function() {
-	//     		console.log(body);
-	// 	        document.Resources = JSON.parse(body).Resources;
- //     	    	res.send(document);
-	//     });
-	//     res.on('error', function(error) {
-	//         console.log(error);
-	//     });
-	// });
-
-	// request.get(
-	// 	"http://spotlight.dbpedia.org/rest/annotate?text="+document.text+"&confidence=0.2&support=20",
-	   
-	//     function (error, response, body) {
-	//     	console.log(response.statusCode);
-	//     	if (!error && response.statusCode == 200) {
-	//     		console.log(body);
-	//     		parseString(body, function (err, result) {
-	// 			    console.dir(result.html.body);
-	// 			});
-
-	//         	//document.Resources = JSON.parse(body).Resources;
- //    	    	res.send(document);
-	//     	}
-	//     }
-	// );
-	
