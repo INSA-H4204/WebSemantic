@@ -9,7 +9,6 @@ myApp.controller('SearchController', ['$scope','GoogleCustomSearch','AlchemyApi'
   	*Called when click on submit button 
   	*/
 	$scope.callRequest = function() {
-
 	 //1 : Call Google Custom Search Service
 	 GoogleCustomSearch.call($scope.request).then(function(response){
 	 	      $scope.documents = response;
@@ -17,13 +16,16 @@ myApp.controller('SearchController', ['$scope','GoogleCustomSearch','AlchemyApi'
           //2 : Call AlchemyAPI service
           AlchemyApi.call($scope.documents).then(function(response){
                 var documents = response;
-                
+              
                 //3 : Call to DBPedia SportLight API
                 DBPediaSpotlightApi.call(documents).then(function(response){
-                    console.log(response);
-                    documents = response;
-
-                });
+					  console.log(response); 
+                    Relaxation.call(response).then(function(response){
+					
+						console.log(response);
+                    
+					}); 
+				});
 
           })
 	 });
