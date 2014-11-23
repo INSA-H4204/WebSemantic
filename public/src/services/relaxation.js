@@ -37,6 +37,9 @@ myApp.service('Relaxation',['$http','$q', function ($http,$q) {
 							}
 						}
 					});
+					console.log(listRessource);
+					listRessource = filtreUnique(listRessource);
+					 console.log(listRessource);
 					var montemps = new Object();
 					montemps.Resources = listRessource;
 					montemps.link = value.link;
@@ -50,7 +53,22 @@ myApp.service('Relaxation',['$http','$q', function ($http,$q) {
 			
 			return listres;
 		};
-
+		function filtreUnique(monTab) {
+			var an = [];
+			var a = [];
+			var b = [];
+			angular.forEach(monTab,function(resour,key3){
+				if (a.indexOf(resour["@URI"]) === -1)
+					a.push(resour["@URI"]);
+			});
+			angular.forEach(monTab,function(resour,key2){
+				if ((a.indexOf(resour["@URI"]) === -1)===false){
+					b.push(resour);
+					a.splice((a.indexOf(resour["@URI"])),1);
+				}
+			});
+			return b;
+		}; 
 		function EnrichissementSparql() {
 //			if(entity["@types"] === "film") {
 		        var deffered = $q.defer();
