@@ -51,4 +51,31 @@ app.post('/ConnectToDBPediaApi', function(req, res) {
 	        }
 	        else ( res.send(null));
 	    })
-	});
+});
+
+
+app.post('/SparqlRequest', function(req, res) {
+    var document = req.body;
+    console.log(document);
+	superagent
+		.get("http://dbpedia.org/sparql")
+			.query({
+				"default-graph-uri": "http://dbpedia.org",
+				query: "select * where {<http://fr.dbpedia.org/resource/Paris> ?r ?p}",
+				format: "json",
+				timeout: 30000
+			})
+			.end(function(result) {
+				console.log(result.statusCode);
+				console.log(result.body);
+	        	if(result.statusCode === "200")
+	        	{
+					var validJson = JSON.parse(result.body);
+					console.log("json = \n\n\n"+ validJson);
+					res.send(validJson);
+				}
+				else {
+					console.error("Error on request !");
+				}
+			});
+});

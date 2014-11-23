@@ -51,80 +51,79 @@ myApp.service('Relaxation',['$http','$q', function ($http,$q) {
 			return listres;
 		};
 
-		function EnrichissementSparql() {
-//			if(entity["@types"] === "film") {
-		        var deffered = $q.defer();
-		        var query="select * where {<http://fr.dbpedia.org/resource/Paris> ?r ?p}";
-		        var dbPediaApiUrl ="http://dbpedia.org/sparql?query="+query+"&format=json&timeout=30000";
-		        //Call to Google DBPEDIA API
 
-              	console.log("youhou");
-		        $http.get(dbPediaApiUrl).
-		              then(function(response) {
-		                deffered.resolve(response);
-		              })
-  		        return deffered.promise;
-		}
+		function EnrichissementDocumentSparql(document){
+			var sparqlGet = [];
+			angular.forEach(document.Resources,function(resource){
+					sparqlGet.push(sparqlQuery(resource));
+			});
+
+  		    var deferred = $q.defer();
+			$q.all(sparqlGet)
+                .then(
+                  function(results) {
+                  	document.rdf = results;
+                    deferred.resolve(document) 
+                },
+                function(errors) {
+                  deferred.reject(errors);
+                },
+                function(updates) {
+                  deferred.update(updates);
+                });
+            return deferred.promise;          
+         }
+
+		function sparqlQuery(resource) {
+			if(resource["@types"] === "film") {
+		        //var query="select * where {<http://fr.dbpedia.org/resource/Paris> ?r ?p}";
+  		    }
+  		    else if(resource["@types"] === "actor"){
+		        //var query="select * where {<http://fr.dbpedia.org/resource/Paris> ?r ?p}";
+  		    }
+  		    else if(resource["@types"] === "director"){
+		        //var query="select * where {<http://fr.dbpedia.org/resource/Paris> ?r ?p}";
+  		    }
+  		    else if(resource["@types"] === "resource"){
+		        //var query="select * where {<http://fr.dbpedia.org/resource/Paris> ?r ?p}";
+  		    }
+  		    var deferred = $q.defer();
+
+			var query="select distinct ?Concept where {[] a ?Concept} LIMIT 100";
+        	var url ="http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query="+query+"&format=json&timeout=30000";
+			$http.get(url).then(function(response) {
+                    deferred.resolve(response.data.results.bindings);
+			});
+	        return deferred.promise;
+  		}
+
+
 		
-		/* function sparqlQuery() {
-			request
-				.get("http://dbpedia.org/sparql")
-				.query({
-				"default-graph-uri": "http://dbpedia.org",
-				query: "select * where {<http://fr.dbpedia.org/resource/Paris> ?r ?p}",
-				format: "json",
-				timeout: 30000
-				})
-				.end(function(res) {
-				if(res.ok && res.text) {
-				cb(JSON.parse(res.text));
-				}
-				else {
-				console.error("Error on request !");
-				}
-				});
-				} */
 		
-	return{
+	return {
       call: function(request) {
-		
-        //This function is the relaxation main function
-        //It can call other function from this service
-		/* angular.forEach(res,function(value,key){
-					angular.forEach(value.Resources,function(value1,key1){
-						if((value1["@types"]= "actor"){
-							var temp = (value1["@types"]).substring((value1["@types"]).lastIndexOf(":")+1);
-							
-							temp = temp.substring(temp.lastIndexOf("/")+1).toLowerCase();
-							if(temp === "actor") {
-								value1["@types"]= "actor";
-								listRessource[i]=value1;
-								i=i+1;				
-							}  */
-		
 
 		//Filtre des entités pour retenir uniquement les entités du domaine du cinéma
 		var documents = filtrerParType(request);
-        var deffered = $q.defer();
-		
-		// angular.forEach(documents,function(document,documentKey){
-		// 	angular.forEach(document.Resources,function(resource,resourceKey){
-		// 		// EnrichissementSparql(resource)
-		// 		// 	.then(function(response) {
-		// 	 //            console.log(response);
-		// 	 //            document.rdf.push(response);
-		// 	 //            console.log(document);
-		//   //               deffered.resolve(document);
-		// 		// 	});
-					
-				
-		// 	});
-		// });
-		//
-		deffered.resolve(EnrichissementSparql());
-        return deffered.promise;
-      }
-
-	};
-
+        var defered = $q.defer();
+		var response = [];
+		angular.forEach(documents,function(document){
+			response.push(EnrichissementDocumentSparql(document));
+		});
+      
+  		    var deferred = $q.defer();
+			$q.all(response)
+                .then(
+                  function(result) {
+                    deferred.resolve(result) 
+                },
+                function(errors) {
+                  deferred.reject(errors);
+                },
+                function(updates) {
+                  deferred.update(updates);
+                });
+            return deferred.promise;          
+		}
+	}
 }]);
