@@ -13,7 +13,6 @@ myApp.service('Relaxation',['$http','$q', function ($http,$q) {
 							var temp = (value1["@types"]).substring((value1["@types"]).lastIndexOf(":")+1);
 							
 							temp = temp.substring(temp.lastIndexOf("/")+1).toLowerCase();
-
 							if(temp === "actor") {
 								value1["@types"]= "actor";
 								listRessource[i]=value1;
@@ -37,19 +36,40 @@ myApp.service('Relaxation',['$http','$q', function ($http,$q) {
 							}
 						}
 					});
+					listRessource = filtreUnique(listRessource);
 					var montemps = new Object();
 					montemps.Resources = listRessource;
 					montemps.link = value.link;
 					montemps.snippet = value.snippet;
+					montemps.text = value.text;
 					montemps.title = value.title;
 					var tabtemps= new Array (listRessource,value.link,value.snippet,value.title)
+					if((listRessource.length)>0){
 					listres[p] = (montemps);
 					p=p+1;
+					}
 				}
 			});
-			
+			console.log(listres);
 			return listres;
+			
 		};
+		function filtreUnique(monTab) {
+			var an = [];
+			var a = [];
+			var b = [];
+			angular.forEach(monTab,function(resour,key3){
+				if (a.indexOf(resour["@URI"]) === -1)
+					a.push(resour["@URI"]);
+			});
+			angular.forEach(monTab,function(resour,key2){
+				if ((a.indexOf(resour["@URI"]) === -1)===false){
+					b.push(resour);
+					a.splice((a.indexOf(resour["@URI"])),1);
+				}
+			});
+			return b;
+		}; 
 
 
 		function EnrichissementDocumentSparql(document){
@@ -102,7 +122,6 @@ myApp.service('Relaxation',['$http','$q', function ($http,$q) {
 		
 	return {
       call: function(request) {
-
 		//Filtre des entités pour retenir uniquement les entités du domaine du cinéma
 		var documents = filtrerParType(request);
         var defered = $q.defer();
