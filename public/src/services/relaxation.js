@@ -13,7 +13,6 @@ myApp.service('Relaxation',['$http','$q', function ($http,$q) {
 							var temp = (value1["@types"]).substring((value1["@types"]).lastIndexOf(":")+1);
 							
 							temp = temp.substring(temp.lastIndexOf("/")+1).toLowerCase();
-
 							if(temp === "actor") {
 								value1["@types"]= "actor";
 								listRessource[i]=value1;
@@ -37,21 +36,23 @@ myApp.service('Relaxation',['$http','$q', function ($http,$q) {
 							}
 						}
 					});
-					console.log(listRessource);
 					listRessource = filtreUnique(listRessource);
-					 console.log(listRessource);
 					var montemps = new Object();
 					montemps.Resources = listRessource;
 					montemps.link = value.link;
 					montemps.snippet = value.snippet;
+					montemps.text = value.text;
 					montemps.title = value.title;
 					var tabtemps= new Array (listRessource,value.link,value.snippet,value.title)
+					if((listRessource.length)>0){
 					listres[p] = (montemps);
 					p=p+1;
+					}
 				}
 			});
-			
+			console.log(listres);
 			return listres;
+			
 		};
 		function filtreUnique(monTab) {
 			var an = [];
@@ -105,6 +106,7 @@ myApp.service('Relaxation',['$http','$q', function ($http,$q) {
 		
 	return{
       call: function(request) {
+	  console.log(request);
 		
         //This function is the relaxation main function
         //It can call other function from this service
