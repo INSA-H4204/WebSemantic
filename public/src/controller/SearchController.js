@@ -20,8 +20,10 @@ myApp.controller('SearchController', ['$scope','GoogleCustomSearch','AlchemyApi'
                 
                 //3 : Call to DBPedia SportLight API
                 DBPediaSpotlightApi.call(documents).then(function(response){
-                    console.log(response);
                     documents = response;
+                    Relaxation.call().then(function(response) {
+                      document = response;
+                    });
 
                 });
 
