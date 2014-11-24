@@ -51,6 +51,10 @@ body {
   margin-left: auto;
 }
 
+.input-group{
+  margin-bottom: -5%;
+}
+
 /* Padding for spacing */
 .inner {
   padding: 10%;
@@ -78,6 +82,7 @@ body {
   color:#333;
   background-color: #fff;
 }*/
+
 
 /*
  * Cover
