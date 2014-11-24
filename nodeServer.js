@@ -4,7 +4,6 @@ var express = require('express'),
 var http = require('http');
 var request = require('request');
 var superagent = require('superagent');
-var parseString = require('xml2js').parseString;
 
 
 
