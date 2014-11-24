@@ -19,32 +19,78 @@
     </head>
     <body>
 
-	<div ng-controller="SearchController" class="site-wrapper">
-	    <div class="site-wrapper-inner">
-    		<div class="cover-container">
-    		    <div class="masthead clearfix">
-        			<h1 class="cover-heading">Personnalisez vos recherches</h1>
-        			<p class="lead">Cette page intègre un moteur de recherche web sémantique, plus intuitif et plus efficace qu'un moteur de recherche habituel. Essayez-le !</p>
-        			<img src="web/Logo_INSA_Lyon_2014.png"/>
-    		    </div>
-    		    <div class="inner cover input-group">
-    			     <input ng-enter="callRequest()" ng-model="request" type="text" class="form-control"     placeholder="Entrez un nom de film, d'acteur, de réalisateur etc..">
-                     <span class="input-group-btn">
-                        <button ng-click="callRequest()" class="btn btn-default" type="button">
-        			       <span class="glyphicon glyphicon-search"></span>
-        			    </button>
-                    </span>
-    		    </div>{{temporaire}}
-    <!--             <div ng-repeat="document in documents"/>
-                    <h3>{{document.title}}<small>{{document.link}}</small></h3>
-                    <p> {{document.snippet}}</p>
-                </div> -->
-    		    <div class="mastfoot">
-    			     <p>©2014 H4204 - IF Insa</p>
-    		    </div>
-    		</div>
-	    </div>
-	</div>
+        <div ng-controller="SearchController">
+            <div class="row">
+            	<div  class="site-wrapper">
+            	    <div class="site-wrapper-inner">
+                		<div class="cover-container">
+                		    <div class="masthead clearfix">
+                    			<h1 class="cover-heading">Personnalisez vos recherches</h1>
+                    			<p class="lead">Cette page intègre un moteur de recherche web sémantique, plus intuitif et plus efficace qu'un moteur de recherche habituel. Essayez-le !</p>
+                    			<img src="web/Logo_INSA_Lyon_2014.png"/>
+                		    </div>
+                		    <div class="inner cover input-group">
+                			     <input ng-enter="callRequest()" ng-model="request" type="text" class="form-control"     placeholder="Entrez un nom de film, d'acteur, de réalisateur etc..">
+                                 <span class="input-group-btn">
+                                    <button ng-click="callRequest()" class="btn btn-default" type="button">
+                    			       <span class="glyphicon glyphicon-search"></span>
+                    			    </button>
+                                </span>
+                		    </div>
+
+                    <!-- teste sans faire d'appel
+                    <div class="col-md-12" >
+                       <div class="panel panel-default text-left" >
+                            <div class="panel-heading" ng-model="collapsed1" ng-click="collapsed1=!collapsed1">
+                                <h4>TITLE 1</h4>
+                            </div>
+                            <div class="panel-body" ng-show="collapsed1">
+                                <small><a href="#">LINK 1</a></small>
+                                <br>
+                                <p> SNIPPET 1</p>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <div class="col-md-12" >
+                       <div class="panel panel-default text-left" ng-model="collapsed2" ng-click="collapsed2=!collapsed2">
+                            <div class="panel-heading">
+                                <h4>TITLE 2</h4>
+                            </div>
+                            <div class="panel-body" ng-show="collapsed2">
+                                <small><a href="#">LINK 1</a></small>
+                                <br>
+                                <p> SNIPPET 2</p>
+                            </div>
+                        </div>
+                    </div> 
+
+                    fin du teste  -->
+
+                    <div class="col-md-12" ng-repeat="document in documents">
+                       <div class="panel panel-default text-left" ng-model="collapsed" ng-click="collapsed=!collapsed" >
+                            <div class="panel-heading">
+                                <h4>{{document.title}} </h4>
+                            </div>
+                            <div class="panel-body" ng-show="collapsed">
+                                <small><a href="{{document.link}}">{{document.link}}</a></small>
+                                <br>
+                                <p> {{document.snippet}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                		    <div class="mastfoot">
+                			     <p>©2014 H4204 - IF INSA de Lyon</p>
+                		    </div>
+
+            		  </div>
+            	   </div>
+                </div>
+            </div>
+
+        </div>
+	
 
             <!--JQuery
             <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
