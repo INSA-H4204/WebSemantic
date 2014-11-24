@@ -23,6 +23,7 @@ myApp.controller('SearchController', ['$scope','GoogleCustomSearch','AlchemyApi'
                 //4 : Service D'enrichissement des graphes
                     Relaxation.call(response).then(function(response){
 						          console.log(response);
+								  $scope.temporaire = response;
     				        }); 
 				      });
           })

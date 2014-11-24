@@ -1,6 +1,7 @@
 myApp.service('Relaxation',['$http','$q', function ($http,$q) {
 
 		function filtrerParType(res) {
+		console.log(res);
 			var listres = []
 			var p=0
 			 angular.forEach(res,function(value,key){
@@ -97,22 +98,32 @@ myApp.service('Relaxation',['$http','$q', function ($http,$q) {
 		function sparqlQuery(resource) {
 			if(resource["@types"] === "film") {
 		        //var query="select * where {<http://fr.dbpedia.org/resource/Paris> ?r ?p}";
-  		    }
+				//var query="select * where {x=<"+resource["@URI"]+"> ?y ?z}LIMIT 100";
+  		    }//filter(?y in () )
   		    else if(resource["@types"] === "actor"){
 		        //var query="select * where {<http://fr.dbpedia.org/resource/Paris> ?r ?p}";
+				//var query="select  * where {x=<"+resource["@URI"]+">  ?y ?z}LIMIT 100";
   		    }
   		    else if(resource["@types"] === "director"){
 		        //var query="select * where {<http://fr.dbpedia.org/resource/Paris> ?r ?p}";
+				//var query="select * where {x=<"+resource["@URI"]+"> ?y ?z}LIMIT 100";
   		    }
-  		    else if(resource["@types"] === "resource"){
+  		    else if(resource["@types"] === "producer"){
 		        //var query="select * where {<http://fr.dbpedia.org/resource/Paris> ?r ?p}";
+				//var query="select * where {<"+resource["@URI"]+"> ?y ?z}LIMIT 100";
   		    }
   		    var deferred = $q.defer();
 
-			var query="select distinct ?Concept where {[] a ?Concept} LIMIT 100";
+			var query="select * where {<"+resource["@URI"]+"> ?y ?z}LIMIT 100";
         	var url ="http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query="+query+"&format=json&timeout=30000";
 			$http.get(url).then(function(response) {
-                    deferred.resolve(response.data.results.bindings);
+			resp = [];
+			angular.forEach(response.data.results.bindings,function(rdf){
+				rdf.x = { type: "uri", value: resource["@URI"]};
+				resp.push(rdf);
+			});
+				
+                    deferred.resolve(resp);
 			});
 	        return deferred.promise;
   		}
