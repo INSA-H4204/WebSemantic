@@ -23,6 +23,8 @@ myApp.controller('SearchController', ['$scope','GoogleCustomSearch','AlchemyApi'
                 //4 : Service D'enrichissement des graphes
                     Relaxation.call(response).then(function(response){
 						          console.log(response);
+                      //5 : Construction du graphe de similarité
+                      Similarity.call(response);
     				        }); 
 				      });
           })

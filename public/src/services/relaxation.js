@@ -1,6 +1,7 @@
 myApp.service('Relaxation',['$http','$q', function ($http,$q) {
 
 		function filtrerParType(res) {
+			console.log(res);
 			var listres = []
 			var p=0
 			 angular.forEach(res,function(value,key){
@@ -82,7 +83,10 @@ myApp.service('Relaxation',['$http','$q', function ($http,$q) {
 			$q.all(sparqlGet)
                 .then(
                   function(results) {
-                  	document.rdf = results;
+                   document.rdf = [];;
+                  	angular.forEach(results,function(rdf){
+						document.rdf.push(rdf);                  		
+                  	});
                     deferred.resolve(document) 
                 },
                 function(errors) {
@@ -123,26 +127,29 @@ myApp.service('Relaxation',['$http','$q', function ($http,$q) {
 	return {
       call: function(request) {
 		//Filtre des entités pour retenir uniquement les entités du domaine du cinéma
+		console.log(request);
 		var documents = filtrerParType(request);
-        var defered = $q.defer();
-		var response = [];
-		angular.forEach(documents,function(document){
-			response.push(EnrichissementDocumentSparql(document));
-		});
-      
-  		    var deferred = $q.defer();
-			$q.all(response)
-                .then(
-                  function(result) {
-                    deferred.resolve(result) 
-                },
-                function(errors) {
-                  deferred.reject(errors);
-                },
-                function(updates) {
-                  deferred.update(updates);
-                });
-            return deferred.promise;          
+	    console.log(documents)
+	        var defered = $q.defer();
+			var response = [];
+			angular.forEach(documents,function(document){
+				response.push(EnrichissementDocumentSparql(document));
+			});
+	      
+	  		    var deferred = $q.defer();
+				$q.all(response)
+	                .then(
+	                  function(result) {
+	                    deferred.resolve(result) 
+	                },
+	                function(errors) {
+	                  deferred.reject(errors);
+	                },
+	                function(updates) {
+	                  deferred.update(updates);
+	                });
+	        			
+		    return deferred.promise;          
 		}
 	}
 }]);
