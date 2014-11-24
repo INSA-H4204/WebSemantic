@@ -129,7 +129,7 @@ myApp.service('Relaxation',['$http','$q', function ($http,$q) {
 		//Filtre des entités pour retenir uniquement les entités du domaine du cinéma
 		console.log(request);
 		var documents = filtrerParType(request);
-	    console.log(documents)
+	    console.log(documents);
 	        var defered = $q.defer();
 			var response = [];
 			angular.forEach(documents,function(document){
