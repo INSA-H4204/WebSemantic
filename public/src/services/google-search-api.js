@@ -16,18 +16,18 @@ myApp.service('GoogleCustomSearch',['$http','$q', function ($http,$q) {
         $http.get(googleApiUrl).
               success(function(data) {
                 
-                // this callback will be called asynchronously
-                // when the response available
-                var response = [] ;
-                angular.forEach(data.items,function(value,key) {
-                  response[key] = { 
-                      link : value.link,
-                      snippet : value.snippet,
-                      title : value.title
-                };
-              });
-                console.log(response);
-                deffered.resolve(response);
+                  // this callback will be called asynchronously
+                  // when the response available
+                  var response = [] ;
+                  angular.forEach(data.items,function(value,key) {
+                    response[key] = { 
+                        link : value.link,
+                        snippet : value.snippet,
+                        title : value.title
+                  };
+                });
+                  console.log(response);
+                  deffered.resolve(response);
               }).
               error(function(data, status, headers, config) {
                 console.log(data);
