@@ -1,18 +1,30 @@
 myApp.service('Similarity',['$http','$q', function ($http,$q) {
-        
+var threshold = 0.5;
+var groups = [];        
 
-	return {
+	
 
 function readJSON(docs) {
 	input = [];
 	sets = [];
-	angular.foreach(docs,function(doc)) {
+	angular.forEach(docs,function(doc,key) {
 		var set = {};
 		sets.push(set);
-		angular.foreach(doc.rdf,function(value)) {
-			}
-		}
-	}
+		input.push([]);
+		angular.forEach(doc.rdf,function(arrays) {
+			angular.forEach(arrays,function(value){
+				if(!(sets[value.x.value])) {
+					input[key].push(value.x.value);
+					sets[key][value.x.value] = true;
+				}
+				if(!(sets[value.z.value])) {
+					input[key].push(value.z.value);
+					sets[key][value.z.value] = true;
+				}
+			});
+		});
+	})
+	console.log(input);
 	return input;
 }
 
@@ -23,7 +35,6 @@ function readJSON(docs) {
 */
 function getGroups(input)
 {
-	var input = [["monkey","donkey","dog"],["donkey","monkey"],["lemur","monkey"],["dog","cat"]];
 	var keyWords = []; // Might be faster to allocate complete size from beginning
 	for (var i = 0; i < input.length; i++) {
 		var b = {};
@@ -118,19 +129,35 @@ function bfs(graph, visited, start, returnValue)
 	bfs(graph, visited, start+1, returnValue);
 }
 
-function getGroupNames(docs) {
+function getGroupRetVal(request) {
 	// TODO
+	var response =[];
+	angular.forEach(groups,function(category,key) {
+		response[key] = {
+				category : key,
+				pages:[]
+			}
+		angular.forEach(category,function(value) {
+			response[key].pages.push(request[value]);
+		})
+	})
+	console.log(response);
+	return response;
 }
+
+	return {
       call: function(request) {
 
         //This function is the relaxation main function
         //It can call other function from this service
-        readJSON(docs);
-		// Algorithm to find groups.
-		return something
+        var input = readJSON(request);
 
-        return;
-      };
+        getGroups(input);
+        console.log(groups);
+        return getGroupRetVal(request);
+
+		// Algorithm to find groups.
+      }
   	}
 
 }]);
