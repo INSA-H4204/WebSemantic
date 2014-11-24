@@ -2,12 +2,6 @@
  * Globals
  */
 
-/* Links */
-a,
-a:focus,
-a:hover {
-  color: #fff;
-}
 
 /* Custom default button */
 .btn-default{
@@ -71,32 +65,19 @@ body {
   margin-bottom: 10px;
 }
 
-
-@media (min-width: 768px) {
-  .masthead-brand {
-    float: left;
-  }
-  .masthead-nav {
-    float: right;
-  }
-}
+/*
+* Panels
+*/
 
 .panel{
-  color:#fff;
-  background-color: #333;
+  text-shadow:none;
+  color: #000;
 }
 
-.panel:hover{
+/*.panel:hover{
   color:#333;
   background-color: #fff;
-}
-
-a {
- color: inherit; 
-}
-a:hover{
- color: #333; 
-} 
+}*/
 
 /*
  * Cover
@@ -130,8 +111,7 @@ a:hover{
   .masthead {
     top: 0;
   }
-  .mastfoot {
-    position: fixed;  
+  .mastfoot { 
     bottom: 0;
   }
   /* Start the vertical centering */
