@@ -113,8 +113,9 @@ myApp.service('Relaxation',['$http','$q', function ($http,$q) {
 				//var query="select * where {<"+resource["@URI"]+"> ?y ?z}LIMIT 100";
   		    }
   		    var deferred = $q.defer();
-
-			var query="select * where {<"+resource["@URI"]+"> ?y ?z}LIMIT 100";
+			var query="select * where {<"+resource["@URI"]+"> ?y ?z.FILTER (!regex(?y,\"^http://www.w3.org/\") AND regex(?z,\"http://dbpedia.org/\")  )}LIMIT 100";
+			//var query="PREFIX pre: <http://www.w3.org/1999/02/22-rdf-syntax-ns> select * where {<"+resource["@URI"]+"> ?y ?z.FILTER (?y not in (pre:\"type\")     )}LIMIT 100";
+			//var query="select * where {<"+resource["@URI"]+"> <\"http://dbpedia.org/property/actor\"> ?z}LIMIT 100"
         	var url ="http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query="+query+"&format=json&timeout=30000";
 			$http.get(url).then(function(response) {
 			resp = [];
