@@ -1,21 +1,22 @@
 myApp.service('Similarity',['$http','$q', function ($http,$q) {
-var threshold = 0.1;
+var threshold = 0.03;
 var groups = [];        
 
 function readJSON(docs) {
-	input = [];
-	sets = [];
+	var input = [];
+	var sets = [];
 	angular.forEach(docs,function(doc,key) {
 		var set = {};
 		sets.push(set);
 		input.push([]);
 		angular.forEach(doc.rdf,function(arrays) {
 			angular.forEach(arrays,function(value){
-				if(!(sets[value.x.value])) {
+				console.log(key);
+				if(!(sets[key][value.x.value])) {
 					input[key].push(value.x.value);
 					sets[key][value.x.value] = true;
 				}
-				if(!(sets[value.z.value])) {
+				if(!(sets[key][value.z.value])) {
 					input[key].push(value.z.value);
 					sets[key][value.z.value] = true;
 				}
@@ -86,6 +87,8 @@ function getJaccardIndex(a, b)
 {
 	var intersection = 0.0;
 	var total = 0.0;
+	console.log(a);
+	console.log(b);
 	for(var i = 0; i < a.length; i++) {
 		if(b[a[i]]) {
 			intersection++;
