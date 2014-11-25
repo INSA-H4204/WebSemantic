@@ -11,18 +11,19 @@ myApp.controller('SearchController', ['$scope','GoogleCustomSearch','AlchemyApi'
 	$scope.callRequest = function() {
 	 //1 : Call Google Custom Search Service
 	 GoogleCustomSearch.call($scope.request).then(function(response){
-	 	      $scope.documents = response;
+	 	      // $scope.documents = response;
       
           //2 : Call AlchemyAPI service
-          AlchemyApi.call($scope.documents).then(function(response){
+          AlchemyApi.call(response).then(function(response){
                 var documents = response;
                 
                 //3 : Call to DBPedia SportLight API
                 DBPediaSpotlightApi.call(documents).then(function(response){
-                  $scope.response = response;
                 //4 : Service D'enrichissement des graphes
                     Relaxation.call(response).then(function(response){
-                        Similarity.call(response);
+                      //5 : Construction du graphe de similarité
+                      console.log(response);
+                      $scope.documents = Similarity.call(response);
     				        }); 
 				      });
           })

@@ -2,8 +2,6 @@ myApp.service('Similarity',['$http','$q', function ($http,$q) {
 var threshold = 0.1;
 var groups = [];        
 
-	
-
 function readJSON(docs) {
 	input = [];
 	sets = [];
