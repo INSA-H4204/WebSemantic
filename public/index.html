@@ -68,14 +68,16 @@
                     fin du teste  -->
 
                     <div class="col-md-12" ng-repeat="document in documents">
-                       <div class="panel panel-default text-left" ng-model="collapsed" ng-click="collapsed=!collapsed" >
-                            <div class="panel-heading">
-                                <h4>{{document.title}} </h4>
-                            </div>
-                            <div class="panel-body" ng-show="collapsed">
-                                <small><a href="{{document.link}}">{{document.link}}</a></small>
-                                <br>
-                                <p> {{document.snippet}}</p>
+                        <div class="col-md-6 jumbotron" ng-repeat="page in document.pages">
+                           <div class="panel panel-default text-left" ng-model="collapsed" ng-click="collapsed=!collapsed">
+                                <div class="panel-heading">
+                                    <h4>{{page.title}} </h4>
+                                </div>
+                                <div class="panel-body" ng-show="collapsed">
+                                    <small><a href="{{document.link}}">{{page.link}}</a></small>
+                                    <br>
+                                    <p> {{page.snippet}}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
