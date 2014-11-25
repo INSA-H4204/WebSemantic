@@ -1,5 +1,5 @@
 myApp.service('Similarity',['$http','$q', function ($http,$q) {
-var threshold = 0.5;
+var threshold = 0.1;
 var groups = [];        
 
 	
@@ -70,6 +70,7 @@ function getGroups(input)
   			}
   		}
   	}
+  	console.log(jaccardMatrix);
   	var visited = new Array(jaccardMatrix.length);
   	for(var i = 0; i < jaccardMatrix.length; i++) {
   		visited[i] = false;
@@ -147,6 +148,7 @@ function getGroupRetVal(request) {
 
 	return {
       call: function(request) {
+      	groups = [];
 
         //This function is the relaxation main function
         //It can call other function from this service
