@@ -78,6 +78,14 @@ body {
   color: #000;
 }
 
+.panel-heading{
+  background-color: #EEEEEE !important;
+}
+
+li:hover{
+  background-color: #EEEEFF !important;
+}
+
 /*.panel:hover{
   color:#333;
   background-color: #fff;

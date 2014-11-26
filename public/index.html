@@ -68,6 +68,22 @@
                     fin du teste  -->
 
                     <div class="col-md-12" ng-repeat="document in documents">
+                       <div class="panel panel-default text-left" >
+                            <!-- <div class="panel-heading" >     
+                                <h4>{{document.title}} </h4>
+                            </div> -->
+                                <ul class="list-group"  >
+                                    <li class="list-group-item" ng-repeat="page in document.pages">
+                                        <h5>{{page.title}}</h5>
+                                        <p> {{page.snippet}} </p>
+                                        <br>
+                                        <small><a href="{{document.link}}">{{page.link}}</a></small> 
+                                    </li>
+                                </ul>
+                        </div>
+                    </div>
+
+                   <!--  <div class="col-md-12" ng-repeat="document in documents">
                         <div class="col-md-6 jumbotron" ng-repeat="page in document.pages">
                            <div class="panel panel-default text-left" ng-model="collapsed" ng-click="collapsed=!collapsed">
                                 <div class="panel-heading">
@@ -80,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                 		    <div class="mastfoot">
                 			     <p>©2014 H4204 - IF INSA de Lyon</p>
